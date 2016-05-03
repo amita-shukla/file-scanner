@@ -5,12 +5,19 @@ import java.nio.file.Paths;
 
 public class Main {
 
-	
-	
+	static String root;
+	static PropertyRecorder pr;
 	public static void main(String[] args) {
+		//hardcoded names of property files
+		
+		String[] files = {"propA.properties", "propB.properties","propC.properties"};
+		
 		//Provide path of files
-		String root = System.getProperty("user.dir");
+		root = System.getProperty("user.dir");
 		Path dir = Paths.get(root + "/Properties");
+		
+		pr = new PropertyRecorder(files,root);
+		
 		runWatch(dir);
 		
 
@@ -32,7 +39,7 @@ public class Main {
 	}
 	
 	public static void setState(String fileName){
-		
+		pr.compareProps(root ,fileName);
 	}
 
 }
