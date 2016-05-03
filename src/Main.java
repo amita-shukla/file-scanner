@@ -2,8 +2,14 @@
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		initWatch();
+		
 
+	}
+
+	private static void initWatch() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
