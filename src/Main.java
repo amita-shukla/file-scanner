@@ -37,7 +37,9 @@ public class Main {
 		
 		
 	}
-	
+	/*
+	 *Called from WatchDir.java 
+	 */
 	public static void setState(String fileName){
 		pr.compareProps(root ,fileName);
 	}

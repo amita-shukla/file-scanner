@@ -54,8 +54,8 @@ public class WatchDir {
 					
 					Path fileName = (Path) ev.context();
 					// 
-					System.out.println("file changed : " + fileName
-							+ ", Event : " + kind);
+					//System.out.println("file changed : " + fileName
+						//	+ ", Event : " + kind);
 					Main.setState(fileName.toString());
 
 				}

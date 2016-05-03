@@ -10,19 +10,18 @@ public class PropertyRecorder {
 
 	PropertyRecorder(String[] files, String root) {
 
-		propA = initProp(root +"\\Properties\\" +files[0]);
-		propB = initProp(root +"\\Properties\\" + files[1]);
-		propC = initProp(root+"\\Properties\\"  + files[2]);
+		propA = initProp(root + "\\Properties\\" + files[0]);
+		propB = initProp(root + "\\Properties\\" + files[1]);
+		propC = initProp(root + "\\Properties\\" + files[2]);
 
 	}
 
 	private Properties initProp(String fileName) {
 		Properties props = new Properties();
 		try {
-			System.out.println("sdn "+fileName);
 			InputStream in = new FileInputStream(fileName);
 			props.load(in);
-			//in.close();
+			// in.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			System.out.println(e.getClass());
@@ -32,7 +31,7 @@ public class PropertyRecorder {
 	}
 
 	public void compareProps(String root, String fileName) {
-		Properties newProps = initProp(root+"/Properties/"  + fileName);
+		Properties newProps = initProp(root + "/Properties/" + fileName);
 		Properties oldProps = getProps(fileName);
 
 		if (newProps.size() > oldProps.size()) {
@@ -48,82 +47,88 @@ public class PropertyRecorder {
 
 	}
 
-	private void checkModify(Properties newProps, Properties oldProps, String fileName) {
-		for(Object key : oldProps.keySet()){
-			if(!newProps.get(key).equals(oldProps.get(key))){
-				printResult(fileName,key.toString(),oldProps.get(key).toString(),newProps.get(key).toString());
-				//newProps.put(key, oldProps.get(key));
+	private void checkModify(Properties newProps, Properties oldProps,
+			String fileName) {
+		for (Object key : oldProps.keySet()) {
+			if (!newProps.get(key).equals(oldProps.get(key))) {
+				printResult(fileName, key.toString(), oldProps.get(key)
+						.toString(), newProps.get(key).toString());
+				// newProps.put(key, oldProps.get(key));
 				break;
 			}
 		}
-		
-		if(fileName.equals("propA.properties")){
+
+		if (fileName.equals("propA.properties")) {
 			propA = newProps;
-		}else if(fileName.equals("propB.properties")){
+		} else if (fileName.equals("propB.properties")) {
 			propB = newProps;
-		}else{
+		} else {
 			propC = newProps;
 		}
-		
+
 	}
 
-	private void checkDelete(Properties newProps, Properties oldProps, String fileName) {
-		
-		for(Object key : oldProps.keySet()){
-			if(!newProps.containsKey(key)){
-				printResult(fileName,key.toString(),oldProps.get(key).toString(),"null");
-				//newProps.put(key, oldProps.get(key));
+	private void checkDelete(Properties newProps, Properties oldProps,
+			String fileName) {
+
+		for (Object key : oldProps.keySet()) {
+			if (!newProps.containsKey(key)) {
+				printResult(fileName, key.toString(), oldProps.get(key)
+						.toString(), "null");
+				// newProps.put(key, oldProps.get(key));
 				break;
 			}
 		}
-		
-		if(fileName.equals("propA.properties")){
+
+		if (fileName.equals("propA.properties")) {
 			propA = newProps;
-		}else if(fileName.equals("propB.properties")){
+		} else if (fileName.equals("propB.properties")) {
 			propB = newProps;
-		}else{
+		} else {
 			propC = newProps;
 		}
-		
+
 	}
 
-	private void checkAdd(Properties newProps, Properties oldProps, String fileName) {
-		
-		for(Object key : newProps.keySet()){
-			if(!oldProps.containsKey(key)){
-				
-				printResult(fileName,key.toString(),"none",newProps.get(key).toString());
-				//oldProps.put(key, newProps.get(key));
+	private void checkAdd(Properties newProps, Properties oldProps,
+			String fileName) {
+
+		for (Object key : newProps.keySet()) {
+			if (!oldProps.containsKey(key)) {
+
+				printResult(fileName, key.toString(), "none", newProps.get(key)
+						.toString());
+				// oldProps.put(key, newProps.get(key));
 				break;
 			}
 		}
-		
-		if(fileName.equals("propA.properties")){
+
+		if (fileName.equals("propA.properties")) {
 			propA = newProps;
-		}else if(fileName.equals("propB.properties")){
+		} else if (fileName.equals("propB.properties")) {
 			propB = newProps;
-		}else{
+		} else {
 			propC = newProps;
 		}
-		
-		
+
 	}
 
-	private void printResult(String fileName, String key, String oldValue, String newValue) {
+	private void printResult(String fileName, String key, String oldValue,
+			String newValue) {
 		System.out.println("File changed : " + fileName);
-		System.out.println("Property Chnaged : " + (String)key);
+		System.out.println("Property Chnaged : " + (String) key);
 		System.out.println("Old Value : " + oldValue);
 		System.out.println("New Value : " + newValue);
 	}
 
 	private Properties getProps(String fileName) {
-		if(fileName.equals("propA.properties")){
+		if (fileName.equals("propA.properties")) {
 			return propA;
-		}else if(fileName.equals("propB.properties")){
+		} else if (fileName.equals("propB.properties")) {
 			return propB;
-		}else{
+		} else {
 			return propC;
 		}
-		
+
 	}
 }
