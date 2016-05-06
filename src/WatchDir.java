@@ -17,8 +17,8 @@ public class WatchDir {
 		watcher = FileSystems.getDefault().newWatchService();
 
 		// Register the directory path for watch
-		dir.register(watcher, ENTRY_CREATE, ENTRY_MODIFY);// todo: register for
-															// modify event only
+		dir.register(watcher, ENTRY_MODIFY);
+											
 		System.out.println("Watch service registered for: " + dir);
 
 	}
@@ -53,9 +53,7 @@ public class WatchDir {
 					// retrieve file name
 					
 					Path fileName = (Path) ev.context();
-					// 
-					//System.out.println("file changed : " + fileName
-						//	+ ", Event : " + kind);
+					
 					Main.setState(fileName.toString());
 
 				}

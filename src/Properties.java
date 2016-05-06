@@ -10,12 +10,8 @@ import java.util.Set;
 public class Properties {
 	ArrayList<Hashtable<String, PropertyValues>> propTables;
 
-	// Hashtable<String, PropertyValues> propA;
-	// Hashtable<String, PropertyValues> propB;
-	// Hashtable<String, PropertyValues> propC;
-
 	/**
-	 * Reads the property file and fills the property in a hashtable.
+	 * Reads the property file and fills the properties in a hashtable.
 	 * 
 	 * @param file
 	 *            : file path + file name + extention
@@ -31,8 +27,7 @@ public class Properties {
 			String line;
 			while (((line = br.readLine()) != null) && (!line.isEmpty())) {
 				String[] pair = line.trim().split("[-:=]");
-				// System.out.println("file: "+ file +"\n"+line);
-				// System.out.println(pair[0]+" ghv "+pair[1]);
+
 				String key = pair[0].trim();
 				String value = pair[1].trim();
 
@@ -52,7 +47,7 @@ public class Properties {
 	}
 
 	/**
-	 * Initializes the properties of given files. Populate the propTables.
+	 * Initializes the properties of given files. Populates the propTables.
 	 * 
 	 * @param files
 	 *            : Array of complete file names
@@ -91,21 +86,29 @@ public class Properties {
 		}
 	}
 
+	/**
+	 * Takes the necessary changes and outputs results
+	 * @param index
+	 *            : index of the property file and corresponding hashtable in
+	 *            propTables
+	 * @param root
+	 * @param fileName
+	 */
 	private void checkChange(int index, String root, String fileName) {
 		Hashtable<String, PropertyValues> ht = propTables.get(index);
 		Set<String> keys = ht.keySet();
 		Set<String> temp = new HashSet<>(keys);
+
 		
-		//System.out.println("key set= " + keys.toString());
 		// read the file
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(new File(root
 					+ fileName)));
 			String line;
 			while (((line = br.readLine()) != null)) {
-				if(line.isEmpty())
+				if (line.isEmpty())
 					continue;
-				//System.out.println("line = " + line);
+				
 				String[] pair = line.trim().split("[=:-]");
 				String key = pair[0].trim();
 				String value = pair[1].trim();
@@ -115,14 +118,13 @@ public class Properties {
 
 					PropertyValues values = ht.get(key);
 					temp.remove(key);
-					
 
 					if (!value.equals(values.getNewValue())) {
 						values.setOldValue(values.getNewValue());
 						values.setNewValue(value);
 						ht.put(key, values);
 						print(fileName, key, values);
-						//break;
+						// break;
 					}
 
 				} else {
@@ -131,10 +133,10 @@ public class Properties {
 					values.setNewValue(value);
 					ht.put(key, values);
 					print(fileName, key, values);
-					//break;
+					// break;
 				}
 
-				//System.out.println("keys = " + keys.toString());
+				
 			}
 
 			br.close();
@@ -144,7 +146,7 @@ public class Properties {
 		}
 
 		// check for deletion
-		//System.out.println("key set : " + keys.toString());
+		
 		if (!temp.isEmpty()) {
 			for (String key : temp) {
 				PropertyValues values = ht.get(key);
@@ -168,6 +170,7 @@ public class Properties {
 			System.out.println("Property Deleted : " + key);
 			System.out.println("Value deleted : " + values.getOldValue());
 		} else {
+			//modification
 			String oldVal = values.getOldValue();
 			String newVal = values.getNewValue();
 			System.out.println("Property changed : " + key);
