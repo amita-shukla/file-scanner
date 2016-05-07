@@ -27,7 +27,10 @@ public class Properties {
 			String line;
 			while (((line = br.readLine()) != null) && (!line.isEmpty())) {
 				String[] pair = line.trim().split("[-:=]");
-
+				if(pair.length<2){
+					System.out.println("Wrong format of key value pair");
+					System.out.println("Separate key value pair by :, - or = ");
+				}
 				String key = pair[0].trim();
 				String value = pair[1].trim();
 
@@ -110,6 +113,12 @@ public class Properties {
 					continue;
 				
 				String[] pair = line.trim().split("[=:-]");
+				
+				if(pair.length<2){
+					System.out.println("Wrong format of key value pair");
+					System.out.println("Separate key value pair by :, - or = ");
+				}
+				
 				String key = pair[0].trim();
 				String value = pair[1].trim();
 
