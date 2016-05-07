@@ -25,12 +25,11 @@ public class Properties {
 					new File(file)));
 
 			String line;
-			while (((line = br.readLine()) != null) && (!line.isEmpty())) {
+			while (((line = br.readLine()) != null) ) {
+				if(line.isEmpty())
+					continue;
 				String[] pair = line.trim().split("[-:=]");
-				if(pair.length<2){
-					System.out.println("Wrong format of key value pair");
-					System.out.println("Separate key value pair by :, - or = ");
-				}
+				
 				String key = pair[0].trim();
 				String value = pair[1].trim();
 
@@ -114,10 +113,6 @@ public class Properties {
 				
 				String[] pair = line.trim().split("[=:-]");
 				
-				if(pair.length<2){
-					System.out.println("Wrong format of key value pair");
-					System.out.println("Separate key value pair by :, - or = ");
-				}
 				
 				String key = pair[0].trim();
 				String value = pair[1].trim();

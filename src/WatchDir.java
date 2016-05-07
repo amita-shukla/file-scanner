@@ -19,7 +19,7 @@ public class WatchDir {
 		// Register the directory path for watch
 		dir.register(watcher, ENTRY_MODIFY);
 											
-		System.out.println("Watch service registered for: " + dir);
+		//System.out.println("Watch service registered for: " + dir);
 
 	}
 
